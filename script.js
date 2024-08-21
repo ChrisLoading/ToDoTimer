@@ -21,8 +21,19 @@ function addList() {
   selection.removeAllRanges();
   selection.addRange(range);
 
+  // Handle the ENTER key press to finish renaming
+  newListItem.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent adding a newline
+      newListItem.contentEditable = false; // Disable editing
+      newListItem.classList.remove("editable"); // Remove highlight
+    }
+  });
+
   // Remove the 'editable' class once the user clicks out of the new list item
   newListItem.addEventListener("blur", function () {
+    // Disable editing and Remove highlightby as well
+    newListItem.contentEditable = false;
     newListItem.classList.remove("editable");
   });
 }
