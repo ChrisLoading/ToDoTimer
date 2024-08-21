@@ -48,6 +48,7 @@ body {
 
 .list-container ul {
   list-style-type: none;
+  padding-left: 0; /* Set left padding to 0 */
 }
 
 .list-container li {
