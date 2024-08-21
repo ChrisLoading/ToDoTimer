@@ -39,6 +39,10 @@ body {
 
 .list-header {
   margin-bottom: 20px;
+}
+
+.list-container {
+  flex-grow: 1;
   overflow-y: auto; /* Ensure the list container is scrollable */
 }
 
