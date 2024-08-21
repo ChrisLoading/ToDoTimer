@@ -61,6 +61,11 @@ body {
   border-radius: 5px;
 }
 
+.list-container li.editable {
+  background-color: #005a9e; /* Highlight the new list */
+  border-radius: 5px;
+}
+
 .add-list {
   margin-top: auto;
 }
