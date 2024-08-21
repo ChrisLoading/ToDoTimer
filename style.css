@@ -34,6 +34,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .list-header {
