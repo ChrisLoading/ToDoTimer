@@ -1,3 +1,10 @@
+function handleEnterKey(event, callback) {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Prevent default behavior
+    callback(); // Execute the provided callback function
+  }
+}
+
 function addList() {
   // Create a new list item
   const newListItem = document.createElement("li");
@@ -23,11 +30,10 @@ function addList() {
 
   // Handle the ENTER key press to finish renaming
   newListItem.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Prevent adding a newline
-      newListItem.contentEditable = false; // Disable editing
-      newListItem.classList.remove("editable"); // Remove highlight
-    }
+    handleEnterKey(event, function () {
+      newListItem.contentEditable = false;
+      newListItem.classList.remove("editable");
+    });
   });
 
   // Remove the 'editable' class once the user clicks out of the new list item
