@@ -1,0 +1,85 @@
+/* Reset some basic styles */
+body,
+h2,
+ul,
+li,
+button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.container {
+  display: flex;
+  width: 90%;
+  height: 80vh;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+  width: 15%;
+  background-color: #0078d4; /* Microsoft To Do blue */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.list-header {
+  margin-bottom: 20px;
+}
+
+.list-container ul {
+  list-style-type: none;
+}
+
+.list-container li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.list-container li:hover {
+  background-color: #005a9e;
+  border-radius: 5px;
+}
+
+.add-list {
+  margin-top: auto;
+}
+
+.add-list button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ffffff;
+  color: #0078d4;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add-list button:hover {
+  background-color: #f0f0f0;
+}
+
+.main-content {
+  width: 60%;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.right-sidebar {
+  width: 25%;
+  padding: 20px;
+  background-color: #e6e6e6;
+}
