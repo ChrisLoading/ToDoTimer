@@ -39,6 +39,7 @@ body {
 
 .list-header {
   margin-bottom: 20px;
+  overflow-y: auto; /* Ensure the list container is scrollable */
 }
 
 .list-container ul {
