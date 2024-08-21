@@ -14,6 +14,13 @@ function addList() {
   // Automatically focus on the new list item so the user can start editing
   newListItem.focus();
 
+  // Select and highlight the text "New List"
+  const selection = window.getSelection();
+  const range = document.createRange();
+  range.selectNodeContents(newListItem);
+  selection.removeAllRanges();
+  selection.addRange(range);
+
   // Remove the 'editable' class once the user clicks out of the new list item
   newListItem.addEventListener("blur", function () {
     newListItem.classList.remove("editable");
