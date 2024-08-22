@@ -71,3 +71,36 @@ document.addEventListener("contextmenu", function (event) {
 document.addEventListener("click", function () {
   document.getElementById("contextMenu").style.display = "none";
 });
+
+// Handle the Delete option
+document.getElementById("deleteOption").addEventListener("click", function () {
+  const targetElement = document.getElementById("contextMenu").targetElement;
+  if (targetElement && targetElement.tagName === "LI") {
+    targetElement.remove();
+  }
+});
+
+// Handle the Rename option
+document.getElementById("renameOption").addEventListener("click", function () {
+  const targetElement = document.getElementById("contextMenu").targetElement;
+  if (targetElement && targetElement.tagName === "LI") {
+    targetElement.contentEditable = true;
+    targetElement.focus();
+
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(targetElement);
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    targetElement.addEventListener("keydown", function (event) {
+      handleEnterKey(event, function () {
+        targetElement.contentEditable = false;
+      });
+    });
+
+    targetElement.addEventListener("blur", function () {
+      targetElement.contentEditable = false;
+    });
+  }
+});
