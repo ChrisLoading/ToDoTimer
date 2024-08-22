@@ -44,10 +44,7 @@ function addList() {
 
   // Handle the ENTER key press to finish renaming
   newListItem.addEventListener("keydown", function (event) {
-    handleEnterKey(event, function () {
-      newListItem.contentEditable = false;
-      newListItem.classList.remove("editable");
-    });
+    handleEnterKey(event, finalizeListName);
   });
 
   // Remove the 'editable' class once the user clicks out of the new list item
