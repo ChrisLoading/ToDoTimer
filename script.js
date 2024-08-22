@@ -38,9 +38,8 @@ function addList() {
 
   // Remove the 'editable' class once the user clicks out of the new list item
   newListItem.addEventListener("blur", function () {
-    // Disable editing and Remove highlightby as well
-    newListItem.contentEditable = false;
-    newListItem.classList.remove("editable");
+    newListItem.contentEditable = false; // Disable editing
+    newListItem.classList.remove("editable"); // Remove highlightby
   });
 }
 
