@@ -1,12 +1,12 @@
 @font-face {
-  font-family: "Cascadia Code NF";
-  src: url("asset/font/Cascadia/CascadiaCodeNF.woff2") format("woff2");
+  font-family: "Iansui-Regular";
+  src: url("asset/font/iansui/Iansui-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 body {
-  font-family: "Cascadia Code NF", monospace;
+  font-family: "Iansui-Regular", monospace;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,7 +22,7 @@ button {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Cascadia Code NF", monospace;
+  font-family: "Iansui-Regular", monospace;
 }
 
 .container {
