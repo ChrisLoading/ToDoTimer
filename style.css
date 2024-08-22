@@ -1,6 +1,7 @@
 @font-face {
   font-family: "Iansui-Regular";
-  src: url("asset/font/iansui/Iansui-Regular.ttf") format("truetype");
+  src: url("asset/font/iansui/Iansui-Regular.woff2") format("woff2"),
+    url("asset/font/iansui/Iansui-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
