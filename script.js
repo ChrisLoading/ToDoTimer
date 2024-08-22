@@ -36,8 +36,8 @@ function addList() {
       listItems.removeChild(newListItem);
     } else {
       // Finalize the name and remove the editable state
-      newListItem.contentEditable = false;
-      newListItem.classList.remove("editable");
+      newListItem.contentEditable = false; // Disable editing
+      newListItem.classList.remove("editable"); // Remove highlightby
       newListItem.textContent = trimmedName; // Update with trimmed name
     }
   }
@@ -48,10 +48,7 @@ function addList() {
   });
 
   // Remove the 'editable' class once the user clicks out of the new list item
-  newListItem.addEventListener("blur", function () {
-    newListItem.contentEditable = false; // Disable editing
-    newListItem.classList.remove("editable"); // Remove highlightby
-  });
+  newListItem.addEventListener("blur", finalizeListName);
 }
 
 // Attach the addList function to the button's click event
