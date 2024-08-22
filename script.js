@@ -53,3 +53,21 @@ function addList() {
 
 // Attach the addList function to the button's click event
 document.getElementById("addListButton").addEventListener("click", addList);
+
+// Show the context menu on right-click
+document.addEventListener("contextmenu", function (event) {
+  event.preventDefault();
+
+  const contextMenu = document.getElementById("contextMenu");
+  contextMenu.style.display = "block";
+  contextMenu.style.left = `${event.pageX}px`;
+  contextMenu.style.top = `${event.pageY}px`;
+
+  // Remember which item was clicked
+  contextMenu.targetElement = event.target;
+});
+
+// Hide the context menu when clicking anywhere else
+document.addEventListener("click", function () {
+  document.getElementById("contextMenu").style.display = "none";
+});
