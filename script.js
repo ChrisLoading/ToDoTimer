@@ -28,6 +28,20 @@ function addList() {
   selection.removeAllRanges();
   selection.addRange(range);
 
+  // Function to finalize the list name
+  function finalizeListName() {
+    const trimmedName = newListItem.textContent.trim();
+    if (trimmedName === "") {
+      // Remove the list item if the name is empty or just spaces
+      listItems.removeChild(newListItem);
+    } else {
+      // Finalize the name and remove the editable state
+      newListItem.contentEditable = false;
+      newListItem.classList.remove("editable");
+      newListItem.textContent = trimmedName; // Update with trimmed name
+    }
+  }
+
   // Handle the ENTER key press to finish renaming
   newListItem.addEventListener("keydown", function (event) {
     handleEnterKey(event, function () {
