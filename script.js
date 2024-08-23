@@ -1,3 +1,4 @@
+// Function to handle Enter key events
 function handleEnterKey(event, callback) {
   if (event.key === "Enter") {
     event.preventDefault(); // Prevent default behavior
