@@ -56,17 +56,31 @@ function addList() {
 document.getElementById("addListButton").addEventListener("click", addList);
 
 // Add CONTEXT MENU
-// Show the context menu on right-click
-document.addEventListener("contextmenu", function (event) {
-  event.preventDefault();
+// Function to initialize the context menu on list items
+function initializeContextMenu() {
+  const listItems = document.querySelectorAll("#listItems li");
+  listItems.forEach((item) => {
+    item.addEventListener("contextmenu", function (event) {
+      event.preventDefault();
 
-  const contextMenu = document.getElementById("contextMenu");
-  contextMenu.style.display = "block";
-  contextMenu.style.left = `${event.pageX}px`;
-  contextMenu.style.top = `${event.pageY}px`;
+      const contextMenu = document.getElementById("contextMenu");
+      contextMenu.style.display = "block";
+      contextMenu.style.left = `${event.pageX}px`;
+      contextMenu.style.top = `${event.pageY}px`;
 
-  // Remember which item was clicked
-  contextMenu.targetElement = event.target;
+      // Remember which item was clicked
+      contextMenu.targetElement = event.target;
+    });
+  });
+}
+
+// Initialize context menu for existing list items on page load
+initializeContextMenu();
+
+// Call the function after new items are added
+document.getElementById("addListButton").addEventListener("click", function () {
+  addList(); // Assuming addList() function is already defined
+  initializeContextMenu(); // Re-initialize context menu for new items
 });
 
 // Hide the context menu when clicking anywhere else
