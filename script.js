@@ -97,38 +97,58 @@ document
   });
 
 // Handle the Delete option
-document.getElementById("deleteOption").addEventListener("click", function () {
-  const targetElement = document.getElementById("contextMenu").targetElement;
-  if (targetElement && targetElement.tagName === "LI") {
-    targetElement.remove();
+function handleDeleteOptionClick(event) {
+  if (event.button === 0) {
+    // Only handle left-click
+    event.preventDefault(); // Prevent any default actions
+    const targetElement = document.getElementById("contextMenu").targetElement;
+    if (targetElement && targetElement.tagName === "LI") {
+      targetElement.remove();
+    }
+    document.getElementById("contextMenu").style.display = "none"; // Hide the context menu after action
   }
-});
+}
 
 // Handle the Rename option
-document.getElementById("renameOption").addEventListener("click", function () {
-  const targetElement = document.getElementById("contextMenu").targetElement;
-  if (targetElement && targetElement.tagName === "LI") {
-    targetElement.contentEditable = true;
-    targetElement.focus();
+function handleRenameOptionClick(event) {
+  if (event.button === 0) {
+    // Only handle left-click
+    event.preventDefault(); // Prevent any default actions
+    const targetElement = document.getElementById("contextMenu").targetElement;
+    if (targetElement && targetElement.tagName === "LI") {
+      targetElement.contentEditable = true;
+      targetElement.focus();
 
-    const selection = window.getSelection();
-    const range = document.createRange();
-    range.selectNodeContents(targetElement);
-    selection.removeAllRanges();
-    selection.addRange(range);
+      const selection = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(targetElement);
+      selection.removeAllRanges();
+      selection.addRange(range);
 
-    function finalizeRename() {
-      targetElement.contentEditable = false;
+      function handleKeydown(event) {
+        handleEnterKey(event, finalizeRename);
+      }
+
+      function finalizeRename() {
+        targetElement.contentEditable = false;
+      }
+
+      // Remove existing listeners to prevent duplicate Event Triggers and Memory Leaks
+      targetElement.removeEventListener("keydown", handleKeydown);
+      targetElement.removeEventListener("blur", finalizeRename);
+
+      // Reattach listeners for the current renaming operation
+      targetElement.addEventListener("keydown", handleKeydown);
+      targetElement.addEventListener("blur", finalizeRename);
     }
-
-    targetElement.removeEventListener("keydown", handleKeydown);
-    targetElement.removeEventListener("blur", finalizeRename);
-
-    function handleKeydown(event) {
-      handleEnterKey(event, finalizeRename);
-    }
-
-    targetElement.addEventListener("keydown", handleKeydown);
-    targetElement.addEventListener("blur", finalizeRename);
+    document.getElementById("contextMenu").style.display = "none"; // Hide the context menu after action
   }
-});
+}
+
+// Attach the event listeners for only left clicks to the context menu options
+document
+  .getElementById("deleteOption")
+  .addEventListener("mousedown", handleDeleteOptionClick);
+document
+  .getElementById("renameOption")
+  .addEventListener("mousedown", handleRenameOptionClick);
