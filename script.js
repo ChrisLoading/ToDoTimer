@@ -6,7 +6,21 @@ function handleEnterKey(event, callback) {
   }
 }
 
-//Add LIST ITEM
+// Function to finalize the list name
+function finalizeListName(newListItem) {
+  const trimmedName = newListItem.textContent.trim();
+  if (trimmedName === "") {
+    // Remove the list item if the name is empty or just spaces
+    newListItem.parentElement.removeChild(newListItem);
+  } else {
+    // Finalize the name and remove the editable state
+    newListItem.contentEditable = false; // Disable editing
+    newListItem.classList.remove("editable"); // Remove highlight
+    newListItem.textContent = trimmedName; // Update with trimmed name
+  }
+}
+
+// Function to add a new list item
 function addList() {
   // Create a new list item
   const newListItem = document.createElement("li");
@@ -30,58 +44,44 @@ function addList() {
   selection.removeAllRanges();
   selection.addRange(range);
 
-  // Function to finalize the list name
-  function finalizeListName() {
-    const trimmedName = newListItem.textContent.trim();
-    if (trimmedName === "") {
-      // Remove the list item if the name is empty or just spaces
-      listItems.removeChild(newListItem);
-    } else {
-      // Finalize the name and remove the editable state
-      newListItem.contentEditable = false; // Disable editing
-      newListItem.classList.remove("editable"); // Remove highlightby
-      newListItem.textContent = trimmedName; // Update with trimmed name
-    }
+  // Handle the ENTER key press to finish renaming
+  function handleKeydown(event) {
+    handleEnterKey(event, function () {
+      finalizeListName(newListItem);
+    });
   }
 
-  // Handle the ENTER key press to finish renaming
-  newListItem.addEventListener("keydown", function (event) {
-    handleEnterKey(event, finalizeListName);
+  // Attach event listeners to finalize the list name
+  newListItem.addEventListener("keydown", handleKeydown);
+  newListItem.addEventListener("blur", function () {
+    finalizeListName(newListItem);
   });
 
-  // Remove the 'editable' class once the user clicks out of the new list item
-  newListItem.addEventListener("blur", finalizeListName);
+  // Attach the context menu to the new list item
+  attachContextMenuToItem(newListItem);
 }
 
-// Attach the addList function to the button's click event
-document.getElementById("addListButton").addEventListener("click", addList);
+// Function to show the context menu
+function showContextMenu(event) {
+  event.preventDefault();
+  const contextMenu = document.getElementById("contextMenu");
+  contextMenu.style.display = "block";
+  contextMenu.style.left = `${event.pageX}px`;
+  contextMenu.style.top = `${event.pageY}px`;
+  contextMenu.targetElement = event.target;
+}
 
-// Add CONTEXT MENU
-// Function to initialize the context menu on list items
-function initializeContextMenu() {
-  const listItems = document.querySelectorAll("#listItems li");
-  listItems.forEach((item) => {
-    item.addEventListener("contextmenu", function (event) {
-      event.preventDefault();
-
-      const contextMenu = document.getElementById("contextMenu");
-      contextMenu.style.display = "block";
-      contextMenu.style.left = `${event.pageX}px`;
-      contextMenu.style.top = `${event.pageY}px`;
-
-      // Remember which item was clicked
-      contextMenu.targetElement = event.target;
-    });
-  });
+// Function to attach the context menu to a list item
+function attachContextMenuToItem(item) {
+  item.addEventListener("contextmenu", showContextMenu);
 }
 
 // Initialize context menu for existing list items on page load
-initializeContextMenu();
+document.querySelectorAll("#listItems li").forEach(attachContextMenuToItem);
 
-// Call the function after new items are added
+// Add new list items and attach the context menu to them
 document.getElementById("addListButton").addEventListener("click", function () {
-  addList(); // Assuming addList() function is already defined
-  initializeContextMenu(); // Re-initialize context menu for new items
+  addList();
 });
 
 // Hide the context menu when clicking anywhere else
@@ -110,14 +110,18 @@ document.getElementById("renameOption").addEventListener("click", function () {
     selection.removeAllRanges();
     selection.addRange(range);
 
-    targetElement.addEventListener("keydown", function (event) {
-      handleEnterKey(event, function () {
-        targetElement.contentEditable = false;
-      });
-    });
-
-    targetElement.addEventListener("blur", function () {
+    function finalizeRename() {
       targetElement.contentEditable = false;
-    });
+    }
+
+    targetElement.removeEventListener("keydown", handleKeydown);
+    targetElement.removeEventListener("blur", finalizeRename);
+
+    function handleKeydown(event) {
+      handleEnterKey(event, finalizeRename);
+    }
+
+    targetElement.addEventListener("keydown", handleKeydown);
+    targetElement.addEventListener("blur", finalizeRename);
   }
 });
