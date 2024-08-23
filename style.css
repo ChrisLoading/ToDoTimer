@@ -127,3 +127,61 @@ button {
 .context-menu li:hover {
   background-color: #eee;
 }
+
+/* Main Content Header */
+.main-content .list-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.main-content .list-header h2 {
+  font-size: 24px;
+  color: #333333;
+}
+
+/* Task Container */
+.task-container {
+  flex-grow: 1;
+  overflow-y: auto; /* Enable scrolling if tasks overflow */
+}
+
+.task-container ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.task-container li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.task-container li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Add Task Input Row */
+.add-task {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: #ffffff;
+  border-top: 1px solid #ddd;
+}
+
+.add-task input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.add-task input::placeholder {
+  color: #888888;
+}
+
+.add-task input:focus {
+  outline: none;
+  border-color: #0078d4;
+}
