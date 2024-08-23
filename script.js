@@ -5,6 +5,7 @@ function handleEnterKey(event, callback) {
   }
 }
 
+//Add LIST ITEM
 function addList() {
   // Create a new list item
   const newListItem = document.createElement("li");
@@ -54,6 +55,7 @@ function addList() {
 // Attach the addList function to the button's click event
 document.getElementById("addListButton").addEventListener("click", addList);
 
+// Add CONTEXT MENU
 // Show the context menu on right-click
 document.addEventListener("contextmenu", function (event) {
   event.preventDefault();
