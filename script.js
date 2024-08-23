@@ -89,6 +89,13 @@ document.addEventListener("click", function () {
   document.getElementById("contextMenu").style.display = "none";
 });
 
+// Prevent the default context menu from showing when right-clicking on context menu items
+document
+  .getElementById("contextMenu")
+  .addEventListener("contextmenu", function (event) {
+    event.preventDefault();
+  });
+
 // Handle the Delete option
 document.getElementById("deleteOption").addEventListener("click", function () {
   const targetElement = document.getElementById("contextMenu").targetElement;
