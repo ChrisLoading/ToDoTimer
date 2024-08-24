@@ -195,3 +195,25 @@ function initializeApp() {
 
 // Run the initializeApp function when the page loads
 window.onload = initializeApp;
+
+// Function to handle clicks on list items
+function handleListClick(event) {
+  // Get the clicked list item
+  const clickedListItem = event.target;
+
+  // Check if the clicked element is a list item
+  if (clickedListItem.tagName === "LI") {
+    // Get the list name from the clicked item
+    const listName = clickedListItem.textContent.trim();
+
+    // Update the main-content header with the selected list name
+    const listTitle = document.getElementById("listTitle");
+    listTitle.textContent = listName;
+
+    // Display the tasks for the selected list
+    displayTasks(listName);
+  }
+}
+
+// Attach the click event listener to the list items in the sidebar
+document.getElementById("listItems").addEventListener("click", handleListClick);
