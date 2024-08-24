@@ -155,7 +155,7 @@ document
 
 // Main-Content Funtionality
 
-// Data structure for tasks
+// Key Data structure for tracking lists and tasks
 const tasks = {
   "Default List 1": ["Task 1 for List 1", "Task 2 for List 1"],
   "Default List 2": ["Task 1 for List 2", "Task 2 for List 2"],
@@ -181,3 +181,17 @@ function displayTasks(listName) {
     taskContainer.appendChild(placeholderTask);
   }
 }
+
+// Function to initialize the app on page load
+function initializeApp() {
+  // Display tasks for the first list by default (assuming there's a default list)
+  const firstListName = Object.keys(tasks)[0];
+  displayTasks(firstListName);
+
+  // Optionally, you can also update the header with the first list's name
+  const listTitle = document.getElementById("listTitle");
+  listTitle.textContent = firstListName;
+}
+
+// Run the initializeApp function when the page loads
+window.onload = initializeApp;
