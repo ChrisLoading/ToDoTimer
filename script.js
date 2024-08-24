@@ -152,3 +152,6 @@ document
 document
   .getElementById("renameOption")
   .addEventListener("mousedown", handleRenameOptionClick);
+
+// Main-Content Funtionality
+// Data structure for tasks
