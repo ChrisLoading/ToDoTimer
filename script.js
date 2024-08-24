@@ -161,3 +161,23 @@ const tasks = {
   "Default List 2": ["Task 1 for List 2", "Task 2 for List 2"],
   // Add more lists and tasks as needed
 };
+
+// Function to display tasks of the selected list
+function displayTasks(listName) {
+  const taskContainer = document.getElementById("taskItems");
+  taskContainer.innerHTML = ""; // Clear any existing tasks
+
+  // Check if the listName exists in the tasks object
+  if (tasks[listName]) {
+    tasks[listName].forEach((task) => {
+      const taskItem = document.createElement("li");
+      taskItem.textContent = task;
+      taskContainer.appendChild(taskItem);
+    });
+  } else {
+    // Optional: Handle cases where the listName doesn't exist (e.g., new lists)
+    const placeholderTask = document.createElement("li");
+    placeholderTask.textContent = "No tasks available";
+    taskContainer.appendChild(placeholderTask);
+  }
+}
