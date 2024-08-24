@@ -154,4 +154,10 @@ document
   .addEventListener("mousedown", handleRenameOptionClick);
 
 // Main-Content Funtionality
+
 // Data structure for tasks
+const tasks = {
+  "Default List 1": ["Task 1 for List 1", "Task 2 for List 1"],
+  "Default List 2": ["Task 1 for List 2", "Task 2 for List 2"],
+  // Add more lists and tasks as needed
+};
