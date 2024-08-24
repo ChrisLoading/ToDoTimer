@@ -217,3 +217,41 @@ function handleListClick(event) {
 
 // Attach the click event listener to the list items in the sidebar
 document.getElementById("listItems").addEventListener("click", handleListClick);
+
+// Function to add a new task to the current list
+function addTaskToList(taskName, listName) {
+  // Check if the list exists in the tasks object
+  if (tasks[listName]) {
+    // Add the new task to the list's array
+    tasks[listName].push(taskName);
+
+    // Update the display to show the newly added task
+    displayTasks(listName);
+  } else {
+    console.error(`List "${listName}" does not exist.`);
+  }
+}
+
+// Event listener for the 'Add New Task' input
+document
+  .getElementById("newTaskInput")
+  .addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      const newTaskInput = event.target;
+      const taskName = newTaskInput.value.trim();
+
+      // Only add the task if it's not empty
+      if (taskName) {
+        // Get the currently displayed list name from the header
+        const currentListName = document
+          .getElementById("listTitle")
+          .textContent.trim();
+
+        // Add the new task to the current list
+        addTaskToList(taskName, currentListName);
+
+        // Clear the input field
+        newTaskInput.value = "";
+      }
+    }
+  });
