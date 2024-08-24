@@ -6,6 +6,8 @@ function handleEnterKey(event, callback) {
   }
 }
 
+// Left Sidebar Funtionality
+
 // Function to finalize the list name
 function finalizeListName(newListItem) {
   const trimmedName = newListItem.textContent.trim();
