@@ -188,6 +188,9 @@ button {
 
 .task-actions {
   float: right;
+  /* display: flex; */
+  align-items: center; /* Center align the buttons vertically */
+  height: 100%;
 }
 
 .task-actions span {
@@ -196,7 +199,9 @@ button {
 }
 
 .task-name {
-  display: inline-block;
+  /* display: inline-block; */
   width: calc(100% - 60px); /* Adjust width based on buttons */
   vertical-align: middle;
+  line-height: 1.5em; /* Ensure the text is vertically aligned */
+  padding: 8px 0; /* Adjust padding to match the height of the task row */
 }
