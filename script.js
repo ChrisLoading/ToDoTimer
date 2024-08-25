@@ -42,8 +42,10 @@ function finalizeListName(newListItem) {
     newListItem.classList.remove("editable");
 
     // Update the data structure and save
-    appData.lists[trimmedName] = [];
-    saveToLocalStorage();
+    if (!appData.lists[trimmedName]) {
+      appData.lists[trimmedName] = [];
+      saveToLocalStorage();
+    }
   }
 }
 
