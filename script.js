@@ -65,7 +65,7 @@ function addList() {
   function handleKeydown(event) {
     handleEnterKey(event, function () {
       finalizeListName(newListItem);
-      displayTasks(trimmedName); // Display tasks for the new list
+      displayTasks(newListItem.textContent.trim()); // Display tasks for the new list
     });
   }
 
@@ -84,9 +84,31 @@ function displayTasks(listName) {
   taskContainer.innerHTML = "";
 
   if (appData.lists[listName]) {
-    appData.lists[listName].forEach((task) => {
+    appData.lists[listName].forEach((task, index) => {
       const taskItem = document.createElement("li");
-      taskItem.textContent = task;
+
+      // Create the structure with task name and action buttons
+      taskItem.innerHTML = `
+        <span class="task-name">${task}</span>
+        <span class="task-actions">
+          <span class="rename-task">✏️</span>
+          <span class="delete-task">🗑️</span>
+        </span>
+      `;
+
+      // Attach event listeners to the buttons
+      taskItem
+        .querySelector(".rename-task")
+        .addEventListener("click", function () {
+          renameTask(listName, index, taskItem);
+        });
+
+      taskItem
+        .querySelector(".delete-task")
+        .addEventListener("click", function () {
+          deleteTask(listName, index);
+        });
+
       taskContainer.appendChild(taskItem);
     });
   } else {
@@ -96,6 +118,41 @@ function displayTasks(listName) {
   }
 
   document.getElementById("listTitle").textContent = listName;
+}
+
+// Function to rename a task
+function renameTask(listName, taskIndex, taskItem) {
+  const taskNameSpan = taskItem.querySelector(".task-name");
+  taskNameSpan.contentEditable = true;
+  taskNameSpan.focus();
+
+  const selection = window.getSelection();
+  const range = document.createRange();
+  range.selectNodeContents(taskNameSpan);
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  function finalizeTaskRename() {
+    const newTaskName = taskNameSpan.textContent.trim();
+    if (newTaskName) {
+      appData.lists[listName][taskIndex] = newTaskName;
+      saveToLocalStorage();
+    }
+    taskNameSpan.contentEditable = false;
+  }
+
+  taskNameSpan.addEventListener("keydown", function (event) {
+    handleEnterKey(event, finalizeTaskRename);
+  });
+
+  taskNameSpan.addEventListener("blur", finalizeTaskRename);
+}
+
+// Function to delete a task
+function deleteTask(listName, taskIndex) {
+  appData.lists[listName].splice(taskIndex, 1);
+  saveToLocalStorage();
+  displayTasks(listName);
 }
 
 // Initialize the app on page load
