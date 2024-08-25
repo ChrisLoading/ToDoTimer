@@ -8,6 +8,7 @@ const appData = {
 
 // Function to save data to localStorage
 function saveToLocalStorage() {
+  console.log("Saving to localStorage:", appData); // Debug log
   localStorage.setItem("appData", JSON.stringify(appData));
 }
 
@@ -15,6 +16,7 @@ function saveToLocalStorage() {
 function loadFromLocalStorage() {
   const savedData = localStorage.getItem("appData");
   if (savedData) {
+    console.log("Loading from localStorage:", JSON.parse(savedData)); // Debug log
     Object.assign(appData, JSON.parse(savedData));
   }
 }
@@ -44,6 +46,7 @@ function finalizeListName(newListItem) {
     // Update the data structure and save
     if (!appData.lists[trimmedName]) {
       appData.lists[trimmedName] = [];
+      console.log("New list added:", trimmedName); // Debug log
       saveToLocalStorage();
     }
   }
@@ -159,7 +162,19 @@ function deleteTask(listName, taskIndex) {
 
 // Initialize the app on page load
 function initializeApp() {
-  const firstListName = Object.keys(appData.lists)[0];
+  // Make sure all lists are rendered on page load
+  const listContainer = document.getElementById("listItems");
+  listContainer.innerHTML = "";
+
+  Object.keys(appData.lists).forEach((listName) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = listName;
+    listContainer.appendChild(listItem);
+    attachContextMenuToItem(listItem);
+  });
+
+  // Display tasks for the first list (or show a placeholder if none exist)
+  const firstListName = Object.keys(appData.lists)[0] || "No Lists Available";
   displayTasks(firstListName);
 }
 
