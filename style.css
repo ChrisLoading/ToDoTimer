@@ -185,3 +185,18 @@ button {
   outline: none;
   border-color: #0078d4;
 }
+
+.task-actions {
+  float: right;
+}
+
+.task-actions span {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.task-name {
+  display: inline-block;
+  width: calc(100% - 60px); /* Adjust width based on buttons */
+  vertical-align: middle;
+}
