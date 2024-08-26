@@ -1,0 +1,16 @@
+{
+  "soundEffectCredits": {
+    "biohazard-alarm": {
+      "description": ["Sound Effect by Dennis from Pixabay"],
+      "link": [
+        "https://pixabay.com/users/dennish18-26151496/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=143105"
+      ]
+    },
+    "civil-defense-siren": {
+      "description": ["Sound Effect by Jurij from Pixabay"],
+      "link": [
+        "https://pixabay.com/users/soundreality-31074404/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=128262"
+      ]
+    }
+  }
+}
