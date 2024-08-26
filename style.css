@@ -1,3 +1,4 @@
+/* Font face (unchanged) */
 @font-face {
   font-family: "Iansui-Regular";
   src: url("asset/font/iansui/Iansui-Regular.woff2") format("woff2"),
@@ -12,37 +13,29 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f0f0f0;
-}
-
-body,
-h2,
-ul,
-li,
-button {
+  background-color: #f5e7e4; /* Updated background color */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Iansui-Regular", monospace;
 }
 
 .container {
   display: flex;
   width: 90%;
   height: 80vh;
-  background-color: #ffffff;
+  background-color: #ffffff; /* Main content background color */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar {
   width: 15%;
-  background-color: #0078d4; /* Microsoft To Do blue */
+  background-color: #3b3b58; /* Updated sidebar color */
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: auto;
 }
 
 .list-header {
@@ -51,26 +44,27 @@ button {
 
 .list-container {
   flex-grow: 1;
-  overflow-y: auto; /* Ensure the list container is scrollable */
+  overflow-y: auto;
 }
 
 .list-container ul {
   list-style-type: none;
-  padding-left: 0; /* Set left padding to 0 */
+  padding-left: 0;
 }
 
 .list-container li {
   padding: 10px;
   cursor: pointer;
+  color: white;
 }
 
 .list-container li:hover {
-  background-color: #005a9e;
+  background-color: #ff5e5b; /* Accent color for hover effect */
   border-radius: 5px;
 }
 
 .list-container li.editable {
-  background-color: #005a9e; /* Highlight the new list */
+  background-color: #ff5e5b; /* Accent color for editable state */
   border-radius: 5px;
 }
 
@@ -81,21 +75,21 @@ button {
 .add-list button {
   width: 100%;
   padding: 10px;
-  background-color: #ffffff;
-  color: #0078d4;
+  background-color: #ff5e5b; /* Accent color for add button */
+  color: #ffffff;
   border: none;
   cursor: pointer;
   border-radius: 5px;
 }
 
 .add-list button:hover {
-  background-color: #f0f0f0;
+  background-color: #ff4e4b; /* Slightly darker on hover */
 }
 
 .main-content {
   width: 60%;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #ffffff; /* Secondary background color */
 }
 
 .right-sidebar {
@@ -128,7 +122,6 @@ button {
   background-color: #eee;
 }
 
-/* Main Content Header */
 .main-content .list-header {
   margin-bottom: 20px;
   text-align: center;
@@ -136,13 +129,12 @@ button {
 
 .main-content .list-header h2 {
   font-size: 24px;
-  color: #333333;
+  color: #333333; /* Primary text color */
 }
 
-/* Task Container */
 .task-container {
   flex-grow: 1;
-  overflow-y: auto; /* Enable scrolling if tasks overflow */
+  overflow-y: auto;
 }
 
 .task-container ul {
@@ -160,7 +152,6 @@ button {
   background-color: #f0f0f0;
 }
 
-/* Add Task Input Row */
 .add-task {
   display: flex;
   justify-content: center;
@@ -183,13 +174,12 @@ button {
 
 .add-task input:focus {
   outline: none;
-  border-color: #0078d4;
+  border-color: #ff5e5b; /* Accent color for focused input */
 }
 
 .task-actions {
   float: right;
-  /* display: flex; */
-  align-items: center; /* Center align the buttons vertically */
+  align-items: center;
   height: 100%;
 }
 
@@ -199,9 +189,8 @@ button {
 }
 
 .task-name {
-  /* display: inline-block; */
-  width: calc(100% - 60px); /* Adjust width based on buttons */
+  width: calc(100% - 60px);
   vertical-align: middle;
-  line-height: 1.5em; /* Ensure the text is vertically aligned */
-  padding: 8px 0; /* Adjust padding to match the height of the task row */
+  line-height: 1.5em;
+  padding: 8px 0;
 }
