@@ -90,6 +90,7 @@ body {
   width: 60%;
   padding: 20px;
   background-color: #ffffff; /* Secondary background color */
+  overflow-y: auto;
 }
 
 .right-sidebar {
