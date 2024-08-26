@@ -195,3 +195,56 @@ body {
   line-height: 1.5em;
   padding: 8px 0;
 }
+
+.timer-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.timer-btn {
+  font-family: "Iansui-Regular", monospace;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  background-color: #d95550;
+  color: white;
+  border-radius: 5px;
+  flex-grow: 1;
+  text-align: center;
+  margin-right: 5px;
+}
+
+.timer-btn:last-child {
+  margin-right: 0;
+}
+
+.timer-btn.active {
+  background-color: #9c9b92;
+}
+
+.timer-display {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.timer-display #timer {
+  font-size: 72px;
+  color: #333;
+}
+
+.timer-actions {
+  text-align: center;
+}
+
+.start-btn {
+  font-family: "Iansui-Regular", monospace;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  background-color: #d95550;
+  color: white;
+  border-radius: 5px;
+  font-size: 24px;
+  width: 100%;
+}

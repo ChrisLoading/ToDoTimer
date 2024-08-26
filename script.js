@@ -298,3 +298,121 @@ document
 document
   .getElementById("renameOption")
   .addEventListener("mousedown", handleRenameOptionClick);
+
+// Initial timer durations in seconds
+const timers = {
+  pomodoro: 25 * 60,
+  shortBreak: 5 * 60,
+  longBreak: 15 * 60,
+};
+
+// Current selected timer
+let currentTimer = "pomodoro";
+let countdownInterval;
+let timerStartTime;
+let timerEndTime;
+
+// Function to update the timer display
+function updateTimerDisplay() {
+  const remainingTime = getRemainingTime();
+  const minutes = Math.floor(remainingTime / 60);
+  const seconds = remainingTime % 60;
+  document.getElementById("timer").textContent = `${String(minutes).padStart(
+    2,
+    "0"
+  )}:${String(seconds).padStart(2, "0")}`;
+}
+
+// Function to get remaining time
+function getRemainingTime() {
+  const now = new Date().getTime();
+  const remainingTime = Math.max(Math.floor((timerEndTime - now) / 1000), 0);
+  return remainingTime;
+}
+
+// Function to start the countdown
+function startCountdown() {
+  clearInterval(countdownInterval);
+  timerStartTime = new Date().getTime();
+  timerEndTime = timerStartTime + timers[currentTimer] * 1000;
+  saveTimerState();
+  countdownInterval = setInterval(() => {
+    const remainingTime = getRemainingTime();
+    updateTimerDisplay();
+    if (remainingTime <= 0) {
+      clearInterval(countdownInterval);
+      alert("Time's up!");
+      resetTimer(); // Reset the timer after it finishes
+    }
+  }, 1000);
+}
+
+// Function to switch timers
+function switchTimer(newTimer) {
+  currentTimer = newTimer;
+  clearInterval(countdownInterval); // Stop the current countdown if any
+  document
+    .querySelectorAll(".timer-btn")
+    .forEach((btn) => btn.classList.remove("active"));
+  document.getElementById(`${newTimer}Btn`).classList.add("active");
+  resetTimer();
+  updateTimerDisplay();
+}
+
+// Function to reset the timer
+function resetTimer() {
+  clearInterval(countdownInterval);
+  timerStartTime = null;
+  timerEndTime = null;
+  timers.pomodoro = 25 * 60;
+  timers.shortBreak = 5 * 60;
+  timers.longBreak = 15 * 60;
+  saveTimerState();
+  updateTimerDisplay();
+}
+
+// Save timer state to localStorage
+function saveTimerState() {
+  const state = {
+    currentTimer,
+    timerEndTime,
+    timers,
+  };
+  localStorage.setItem("timerState", JSON.stringify(state));
+}
+
+// Load timer state from localStorage
+function loadTimerState() {
+  const savedState = JSON.parse(localStorage.getItem("timerState"));
+  if (savedState) {
+    currentTimer = savedState.currentTimer;
+    timerEndTime = savedState.timerEndTime;
+    Object.assign(timers, savedState.timers);
+    if (timerEndTime) {
+      startCountdown(); // Resume countdown if there is an ongoing timer
+    }
+    updateTimerDisplay();
+  }
+}
+
+// Event listeners for timer buttons
+document.getElementById("pomodoroBtn").addEventListener("click", function () {
+  switchTimer("pomodoro");
+});
+
+document.getElementById("shortBreakBtn").addEventListener("click", function () {
+  switchTimer("shortBreak");
+});
+
+document.getElementById("longBreakBtn").addEventListener("click", function () {
+  switchTimer("longBreak");
+});
+
+// Event listener for the start button
+document
+  .getElementById("startTimerBtn")
+  .addEventListener("click", startCountdown);
+
+// Initialize display with the default timer
+loadTimerState();
+updateTimerDisplay();
