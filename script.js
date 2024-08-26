@@ -8,7 +8,6 @@ const appData = {
 
 // Function to save data to localStorage
 function saveToLocalStorage() {
-  console.log("Saving to localStorage:", appData); // Debug log
   localStorage.setItem("appData", JSON.stringify(appData));
 }
 
@@ -16,7 +15,6 @@ function saveToLocalStorage() {
 function loadFromLocalStorage() {
   const savedData = localStorage.getItem("appData");
   if (savedData) {
-    console.log("Loading from localStorage:", JSON.parse(savedData)); // Debug log
     Object.assign(appData, JSON.parse(savedData));
   }
 }
@@ -46,7 +44,6 @@ function finalizeListName(newListItem) {
     // Update the data structure and save
     if (!appData.lists[trimmedName]) {
       appData.lists[trimmedName] = [];
-      console.log("New list added:", trimmedName); // Debug log
       saveToLocalStorage();
     }
   }
@@ -245,3 +242,59 @@ document
   .addEventListener("contextmenu", function (event) {
     event.preventDefault();
   });
+
+// Handle the Delete option from the context menu
+function handleDeleteOptionClick(event) {
+  const targetElement = document.getElementById("contextMenu").targetElement;
+  if (targetElement && targetElement.tagName === "LI") {
+    targetElement.remove();
+    delete appData.lists[targetElement.textContent.trim()];
+    saveToLocalStorage();
+  }
+  document.getElementById("contextMenu").style.display = "none";
+}
+
+// Handle the Rename option from the context menu
+function handleRenameOptionClick(event) {
+  const targetElement = document.getElementById("contextMenu").targetElement;
+  if (targetElement && targetElement.tagName === "LI") {
+    targetElement.contentEditable = true;
+    targetElement.focus();
+
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(targetElement);
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    function finalizeRename() {
+      const newName = targetElement.textContent.trim();
+      if (newName) {
+        const oldName = Object.keys(appData.lists).find(
+          (name) => name === targetElement.textContent.trim()
+        );
+        if (oldName && oldName !== newName) {
+          appData.lists[newName] = appData.lists[oldName];
+          delete appData.lists[oldName];
+          saveToLocalStorage();
+        }
+      }
+      targetElement.contentEditable = false;
+    }
+
+    targetElement.addEventListener("keydown", function (event) {
+      handleEnterKey(event, finalizeRename);
+    });
+
+    targetElement.addEventListener("blur", finalizeRename);
+  }
+  document.getElementById("contextMenu").style.display = "none";
+}
+
+// Attach event listeners to context menu options
+document
+  .getElementById("deleteOption")
+  .addEventListener("mousedown", handleDeleteOptionClick);
+document
+  .getElementById("renameOption")
+  .addEventListener("mousedown", handleRenameOptionClick);
