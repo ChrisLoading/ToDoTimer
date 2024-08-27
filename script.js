@@ -1,8 +1,8 @@
 // Key Data structure for tracking lists and tasks
 const appData = {
   lists: {
-    "Default List 1": ["Task 1 for List 1", "Task 2 for List 1"],
-    "Default List 2": ["Task 1 for List 2", "Task 2 for List 2"],
+    我的一天: ["Task 1", "Task 2"],
+    "⭐重要": ["Task 1", "Task 2"],
   },
 };
 
